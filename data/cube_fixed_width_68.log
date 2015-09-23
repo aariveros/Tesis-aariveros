@@ -1,0 +1,58 @@
++++ Source 'observed-SO2v2=1' added
+ |- Component added to 'observed-SO2v2=1' (observed-SO2v2=1-c1)
+ ---+ Model: mol_list = ['SO2v2=1'] @ spa_form=('normal', 88.84636629407566, 49.66575712949496, 0.9002241468543372), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.9002241468543372, 80.09762663724797)
++++ Source 'observed-OS18O' added
+ |- Component added to 'observed-OS18O' (observed-OS18O-c1)
+ ---+ Model: mol_list = ['OS18O'] @ spa_form=('normal', 124.67676510407483, 63.964494259838844, 0.3197306593544816), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.3197306593544816, 94.23079264410693)
++++ Source 'observed-H213CS' added
+ |- Component added to 'observed-H213CS' (observed-H213CS-c1)
+ ---+ Model: mol_list = ['H213CS'] @ spa_form=('normal', 102.74425782798588, 99.28961631615164, 1.98284538962241), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.98284538962241, 32.944392727348614)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=277000 bandwidth=[275000.0, 279000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 7
+*** Source: observed-SO2v2=1
+  |- Projecting observed-SO2v2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur dioxide (SO2v2=1) around 275061.7269 Mhz, at 0.238886387593 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 276760.8235 Mhz, at 0.0846679616396 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 277895.254 Mhz, at 0.000106412918659 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278469.1825 Mhz, at 0.00771631336454 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278709.8722 Mhz, at 0.00234472323901 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278755.1244 Mhz, at 0.190968566243 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278849.6017 Mhz, at 0.222712493581 K
+*** Source: observed-H213CS
+  |- Projecting observed-H213CS-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-OS18O
+  |- Projecting observed-OS18O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS18O) around 275207.6031 Mhz, at 0.299967289457 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275282.0764 Mhz, at 0.555851978767 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275454.6038 Mhz, at 0.249983046168 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275552.9984 Mhz, at 0.689574655977 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275646.3336 Mhz, at 0.123289937905 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276002.289 Mhz, at 0.727808502007 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276274.7786 Mhz, at 0.446696160723 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276277.2242 Mhz, at 0.294811292998 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276567.9332 Mhz, at 0.0559402841271 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276568.1446 Mhz, at 0.0559402841271 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276651.2492 Mhz, at 0.00270318164664 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276651.2621 Mhz, at 0.00270318164664 K
+      |- Projecting Sulfur Dioxide (OS18O) around 277080.9497 Mhz, at 0.483854737999 K
+      |- Projecting Sulfur Dioxide (OS18O) around 277088.3147 Mhz, at 0.483854254144 K
+      |- Projecting Sulfur Dioxide (OS18O) around 277598.0815 Mhz, at 0.0126744725293 K
+      |- Projecting Sulfur Dioxide (OS18O) around 277728.8297 Mhz, at 0.00272559749118 K
+      |- Projecting Sulfur Dioxide (OS18O) around 278108.0163 Mhz, at 0.000469245371849 K
+      |- Projecting Sulfur Dioxide (OS18O) around 278116.0342 Mhz, at 0.0271196746658 K
+      |- Projecting Sulfur Dioxide (OS18O) around 278393.6459 Mhz, at 0.333221533171 K
+   -++ Saving FITS: data/cube_fixed_width_68.fits

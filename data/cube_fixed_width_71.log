@@ -1,0 +1,48 @@
++++ Source 'observed-SO2v=0' added
+ |- Component added to 'observed-SO2v=0' (observed-SO2v=0-c1)
+ ---+ Model: mol_list = ['SO2v=0'] @ spa_form=('normal', 53.2882297655486, 98.29802839912674, 0.08476156023909621), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.08476156023909621, 25.890019718781268)
++++ Source 'observed-H13CNv=0' added
+ |- Component added to 'observed-H13CNv=0' (observed-H13CNv=0-c1)
+ ---+ Model: mol_list = ['H13CNv=0'] @ spa_form=('normal', 129.44742250242012, 57.193251646150586, 1.065657805540438), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.065657805540438, 87.49474521157542)
++++ Source 'observed-H2C34S' added
+ |- Component added to 'observed-H2C34S' (observed-H2C34S-c1)
+ ---+ Model: mol_list = ['H2C34S'] @ spa_form=('normal', 122.71134580777074, 80.9673748412882, 2.0685294847751194), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.0685294847751194, 95.03601035862816)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=277000 bandwidth=[275000.0, 279000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 7
+*** Source: observed-H13CNv=0
+  |- Projecting observed-H13CNv=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-H2C34S
+  |- Projecting observed-H2C34S-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Thioformaldehyde (H2C34S) around 277295.9149 Mhz, at 0.797352151976 K
+*** Source: observed-SO2v=0
+  |- Projecting observed-SO2v=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur dioxide (SO2v=0) around 275184.4681 Mhz, at 0.00169371505339 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 275240.184 Mhz, at 0.662509086175 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 275297.6122 Mhz, at 2.16794927261e-06 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 275375.7013 Mhz, at 0.313207164625 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 276254.5765 Mhz, at 0.655833583287 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 276301.2521 Mhz, at 0.10562973074 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 276405.6375 Mhz, at 8.30435264221e-05 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 276558.3672 Mhz, at 0.253603994278 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 276641.1033 Mhz, at 6.31670478911e-07 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 276861.1198 Mhz, at 0.00983199738289 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 276992.9155 Mhz, at 0.0125805030609 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 277085.9287 Mhz, at 0.0445839133205 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 277629.5888 Mhz, at 5.73230022192e-06 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 278250.9723 Mhz, at 1.13724267571 K
+      |- Projecting Sulfur dioxide (SO2v=0) around 278858.6075 Mhz, at 0.000677757633779 K
+   -++ Saving FITS: data/cube_fixed_width_71.fits
