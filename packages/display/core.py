@@ -180,7 +180,7 @@ def gen_words(molist, cube_params, dual_words=False):
                                   cube_params['spe_bw'])
             if len(lines.hdulist) > 1:
 
-                if(dual_words):
+                if(not dual_words):
                     for line in lines.hdulist[1].data:
                         word =  np.array(np.zeros(len(lines.get_spectrum())))
                         '''
@@ -194,7 +194,11 @@ def gen_words(molist, cube_params, dual_words=False):
                     for line in lines.hdulist[1].data:
 
                         last_iso = last_code.split('-')[0]
-                        if(iso != last_iso and line[1] - last_freq > 2):
+                        distance = float(line[0].split('-')[1][1:]) - last_freq
+
+                        if(iso != last_iso or \
+                         (iso == last_iso and distance > 2)):
+
                             word =  np.array(np.zeros(len(lines.get_spectrum())))
                             '''
                                 line[0] : line_code alias
@@ -202,7 +206,11 @@ def gen_words(molist, cube_params, dual_words=False):
                             '''
                             word[line[1]] = 1
                             dictionary[line[0]] = word
+
+                            last_code = line[0]
+
                         else:
+
                             dictionary.pop(last_code)
                             word[line[1]] = 1
 
@@ -210,9 +218,10 @@ def gen_words(molist, cube_params, dual_words=False):
                                          line[0].split('-')[1]
 
                             dictionary[dual_alias] = word
-                        last_code = line[0]
-                        last_freq = line[1]
 
+                            last_code = dual_alias
+
+                        last_freq = float(line[0].split('-')[1][1:])
 
     dictionary.index = get_freq_index_from_params(cube_params)
     return dictionary
@@ -353,9 +362,43 @@ def get_results(confusion_matrix):
     return results
 
 
-def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params):
+def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_words=False):
 
     lines = get_lines_from_fits(file_path)
+
+    if(dual_words):
+
+        dual_lines = pd.Series([])
+        last_code = ""
+        last_freq = 0
+
+        for idx in  range(0, len(lines)):
+
+            last_iso = last_code.split('-')[0]
+            distance = float(lines[idx][1]) - last_freq
+
+            if(lines[idx][0] != last_iso or \
+             (lines[idx][0] == last_iso and distance > 2)):
+
+                """
+                    line[0] : Formula
+                    line[1] : Frequency (MHz)
+                """
+                last_code = lines.index[idx]
+                dual_lines[last_code]= [lines[idx][0], lines[idx][1]]
+
+            else:
+
+                dual_lines.pop(last_code)
+
+                dual_alias = last_code + "&&" + str(lines[idx][1])
+
+                last_code = dual_alias
+                dual_lines[last_code]= [lines[idx][0], lines[idx][1]]
+
+            last_freq = lines[idx][1]
+
+        lines = dual_lines
 
     # Catches the predicted lines
     alpha_columns = pd.Series(alpha[:,0])
@@ -373,14 +416,16 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params):
                                     index=alpha_columns.index, columns=set_isotopes)
 
     for idx in  range(0, len(lines)):
-        isotope_name = lines.values[idx][0] + "-f" + str(lines.values[idx][1])
+        isotope_name = lines.index[idx]
 
         tot_sum = 0
         aux_alpha = pd.Series([])
         for line_name in alpha_columns.index:
-            if dictionary_recal[line_name].loc[lines.index[idx]] != 0:
-                aux_alpha[line_name] = alpha_columns[line_name]
-                tot_sum += np.absolute(alpha_columns[line_name])
+            indexes_dual = lines.index[idx].split('-')[1].split("&&")
+            for index in indexes_dual:
+                if dictionary_recal[line_name].loc[int(float(index[1:]))] != 0:
+                    aux_alpha[line_name] = alpha_columns[line_name]
+                    tot_sum += np.absolute(alpha_columns[line_name])
         aux_alpha = aux_alpha/tot_sum
 
         for isotope in aux_alpha.index:
@@ -501,7 +546,8 @@ def get_lines_from_fits(file_path):
                 line[3] : Frequency (MHz)
                 line[6] : Temperature (No unit)
             """
-            lines[int(line[3])]= [line[1], line[3]]
+            code = line[1] + "-f" + str(line[3])
+            lines[code]= [line[1], line[3]]
         i = i + 3
     hdu_list.close()
     return lines
