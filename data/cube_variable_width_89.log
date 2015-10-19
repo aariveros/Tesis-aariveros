@@ -1,0 +1,60 @@
++++ Source 'observed-SO2v2=1' added
+ |- Component added to 'observed-SO2v2=1' (observed-SO2v2=1-c1)
+ ---+ Model: mol_list = ['SO2v2=1'] @ spa_form=('normal', 136.9517664232099, 42.53419201358456, 1.2644691109313049), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.2644691109313049, 139.20797546433053)
++++ Source 'observed-OS18O' added
+ |- Component added to 'observed-OS18O' (observed-OS18O-c1)
+ ---+ Model: mol_list = ['OS18O'] @ spa_form=('normal', 121.18258579324905, 56.9926152729318, 0.5435853246573237), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.5435853246573237, 17.133214013505032)
++++ Source 'observed-OS17O' added
+ |- Component added to 'observed-OS17O' (observed-OS17O-c1)
+ ---+ Model: mol_list = ['OS17O'] @ spa_form=('normal', 129.57689501337907, 63.238934169218645, 0.7160011946895454), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.7160011946895454, 39.249038808730226)
++++ Source 'observed-HC15Nv=0' added
+ |- Component added to 'observed-HC15Nv=0' (observed-HC15Nv=0-c1)
+ ---+ Model: mol_list = ['HC15Nv=0'] @ spa_form=('normal', 131.82531215083696, 83.65599824524463, 1.789710302637124), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.789710302637124, 57.267044362485755)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=277000 bandwidth=[275000.0, 279000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 7
+*** Source: observed-SO2v2=1
+  |- Projecting observed-SO2v2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-OS17O
+  |- Projecting observed-OS17O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS17O) around 275054.7862 Mhz, at 0.294204859209 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275142.6319 Mhz, at 0.365874065692 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275151.3474 Mhz, at 0.365873529078 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275431.4561 Mhz, at 0.32144705793 K
+      |- Projecting Sulfur Dioxide (OS17O) around 276201.24 Mhz, at 0.216396143298 K
+      |- Projecting Sulfur Dioxide (OS17O) around 277061.5867 Mhz, at 0.272437879974 K
+      |- Projecting Sulfur Dioxide (OS17O) around 277365.4535 Mhz, at 0.338432024415 K
+*** Source: observed-HC15Nv=0
+  |- Projecting observed-HC15Nv=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-OS18O
+  |- Projecting observed-OS18O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS18O) around 275207.6031 Mhz, at 0.783941241627 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275282.0764 Mhz, at 1.45267602739 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275454.6038 Mhz, at 0.65331129922 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275552.9984 Mhz, at 1.80214987101 K
+      |- Projecting Sulfur Dioxide (OS18O) around 275646.3336 Mhz, at 0.322208688743 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276002.289 Mhz, at 1.90207106169 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276274.7786 Mhz, at 1.16740576448 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276277.2242 Mhz, at 0.770466444847 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276567.9332 Mhz, at 0.146195593109 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276568.1446 Mhz, at 0.146195593109 K
+      |- Projecting Sulfur Dioxide (OS18O) around 277080.9497 Mhz, at 1.26451682369 K
+      |- Projecting Sulfur Dioxide (OS18O) around 277088.3147 Mhz, at 1.26451555917 K
+      |- Projecting Sulfur Dioxide (OS18O) around 278393.6459 Mhz, at 0.870848627941 K
+   -++ Saving FITS: data/cube_variable_width_89.fits

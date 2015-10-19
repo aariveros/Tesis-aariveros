@@ -1,30 +1,24 @@
 +++ Source 'observed-SO2v=0' added
  |- Component added to 'observed-SO2v=0' (observed-SO2v=0-c1)
- ---+ Model: mol_list = ['SO2v=0'] @ spa_form=('normal', 105.77782907308497, 73.57829458838728, 0.8160617505731805), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.8160617505731805, 103.53800764504916)
+ ---+ Model: mol_list = ['SO2v=0'] @ spa_form=('normal', 105.34474651663899, 42.58380580916875, 1.2184066905377988), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.2184066905377988, 16.581785977526135)
 +++ Source 'observed-34SO2v=0' added
  |- Component added to 'observed-34SO2v=0' (observed-34SO2v=0-c1)
- ---+ Model: mol_list = ['34SO2v=0'] @ spa_form=('normal', 59.46214479854331, 55.49393517724873, 2.315037431159871), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.315037431159871, 130.08909202327123)
-+++ Source 'observed-SO2v2=1' added
- |- Component added to 'observed-SO2v2=1' (observed-SO2v2=1-c1)
- ---+ Model: mol_list = ['SO2v2=1'] @ spa_form=('normal', 73.4205805846442, 90.93864727020926, 2.129344169499996), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.129344169499996, 104.25132835427704)
-+++ Source 'observed-HC15Nv=0' added
- |- Component added to 'observed-HC15Nv=0' (observed-HC15Nv=0-c1)
- ---+ Model: mol_list = ['HC15Nv=0'] @ spa_form=('normal', 110.1601053286241, 64.56161495066982, 0.8898498071737452), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.8898498071737452, 140.82535961893817)
+ ---+ Model: mol_list = ['34SO2v=0'] @ spa_form=('normal', 102.69674868365814, 80.37886531506544, 2.5342420153933904), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.5342420153933904, 94.0371292962885)
++++ Source 'observed-OS18O' added
+ |- Component added to 'observed-OS18O' (observed-OS18O-c1)
+ ---+ Model: mol_list = ['OS18O'] @ spa_form=('normal', 85.3607589750284, 93.18775971938217, 0.4140806240637984), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.4140806240637984, 84.48034971269776)
 +++ Source 'observed-H13CNv2=1' added
  |- Component added to 'observed-H13CNv2=1' (observed-H13CNv2=1-c1)
- ---+ Model: mol_list = ['H13CNv2=1'] @ spa_form=('normal', 100.9719828056963, 64.26767407309575, 0.5074194628493998), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.5074194628493998, 91.81204854481508)
+ ---+ Model: mol_list = ['H13CNv2=1'] @ spa_form=('normal', 127.20805703768288, 80.63928200670748, 0.08196660985483467), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.08196660985483467, 46.63201098341626)
 +++ Source 'observed-H13CNv=0' added
  |- Component added to 'observed-H13CNv=0' (observed-H13CNv=0-c1)
- ---+ Model: mol_list = ['H13CNv=0'] @ spa_form=('normal', 61.389397417469624, 49.746894391707684, 2.6549971387115994), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.6549971387115994, 55.60063943879767)
+ ---+ Model: mol_list = ['H13CNv=0'] @ spa_form=('normal', 60.27080873841779, 60.25392635396045, 0.8103534305184815), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.8103534305184815, 98.84344337300942)
 +++ Source 'observed-H213CS' added
  |- Component added to 'observed-H213CS' (observed-H213CS-c1)
- ---+ Model: mol_list = ['H213CS'] @ spa_form=('normal', 149.17185336076454, 87.51366323353548, 2.8157314928038963), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.8157314928038963, 61.011930869729746)
-+++ Source 'observed-H2C34S' added
- |- Component added to 'observed-H2C34S' (observed-H2C34S-c1)
- ---+ Model: mol_list = ['H2C34S'] @ spa_form=('normal', 98.17493271287827, 65.84437669167741, 1.6279941059958987), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.6279941059958987, 106.94014498812535)
+ ---+ Model: mol_list = ['H213CS'] @ spa_form=('normal', 93.4125777194942, 91.28351284002446, 3.1379920880158156), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 3.1379920880158156, 33.071038347326365)
 +++ Source 'observed-H213CO' added
  |- Component added to 'observed-H213CO' (observed-H213CO-c1)
- ---+ Model: mol_list = ['H213CO'] @ spa_form=('normal', 129.91637723397022, 84.38000739077434, 0.1316645429622301), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.1316645429622301, 25.40638872435272)
+ ---+ Model: mol_list = ['H213CO'] @ spa_form=('normal', 116.27129449690938, 86.78153135180088, 2.5220818121118422), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.5220818121118422, 81.97477861591635)
 [*] Generating cube observerd
   |- Angular Coordinates (deg): ra=0 dec=0
   |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
@@ -32,87 +26,47 @@
   |- Spectral (MHz): center=604000 bandwidth=[602000.0, 606000.0]
   |- Cube size: 2 x 2 x 4000 
   |- Band: 9
-*** Source: observed-H13CNv=0
-  |- Projecting observed-H13CNv=0-c1
+*** Source: observed-OS18O
+  |- Projecting observed-OS18O-c1
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Hydrogen Cyanide (H13CNv=0) around 604267.914 Mhz, at 0.642225425481 K
 *** Source: observed-H213CS
   |- Projecting observed-H213CS-c1
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Thioformaldehyde (H213CS) around 602149.9892 Mhz, at 1.65258388292 K
+      |- Projecting Thioformaldehyde (H213CS) around 602149.9892 Mhz, at 0.535577178619 K
 *** Source: observed-H13CNv2=1
   |- Projecting observed-H13CNv2=1-c1
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Hydrogen Cyanide (H13CNv2=1) around 604090.544 Mhz, at 0.0511395783353 K
-*** Source: observed-H2C34S
-  |- Projecting observed-H2C34S-c1
-   --+ Generating template image
-   --+ Generating template line distribution
-   --+ Loading and correcting lines
-      |- Projecting Thioformaldehyde (H2C34S) around 604710.9998 Mhz, at 0.945763433314 K
-      |- Projecting Thioformaldehyde (H2C34S) around 605200.1552 Mhz, at 0.00693046146617 K
-      |- Projecting Thioformaldehyde (H2C34S) around 605200.1552 Mhz, at 0.00693046146617 K
-      |- Projecting Thioformaldehyde (H2C34S) around 605585.4505 Mhz, at 0.0171624003924 K
-      |- Projecting Thioformaldehyde (H2C34S) around 605585.4505 Mhz, at 0.0171624003924 K
-      |- Projecting Thioformaldehyde (H2C34S) around 605935.8198 Mhz, at 0.0390815152956 K
-      |- Projecting Thioformaldehyde (H2C34S) around 605935.8198 Mhz, at 0.0390815152956 K
 *** Source: observed-34SO2v=0
   |- Projecting observed-34SO2v=0-c1
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 602629.7294 Mhz, at 9.3447169196e-07 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 602815.8891 Mhz, at 0.0755867882737 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 603267.8807 Mhz, at 1.24083870869e-05 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 603928.816 Mhz, at 0.00802208136179 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 604080.004 Mhz, at 0.11774846652 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 604376.563 Mhz, at 0.161413351634 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 604504.0028 Mhz, at 1.04751297805e-05 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 605440.428 Mhz, at 0.0182786462992 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 605499.8855 Mhz, at 0.169384539129 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 605890.93 Mhz, at 5.35292329491e-06 K
-      |- Projecting Sulfur Dioxide (34SO2v=0) around 605924.403 Mhz, at 0.0786198760139 K
-*** Source: observed-HC15Nv=0
-  |- Projecting observed-HC15Nv=0-c1
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 602815.8891 Mhz, at 0.637071083226 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 604080.004 Mhz, at 0.99242400461 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 604376.563 Mhz, at 1.36044646322 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 605499.8855 Mhz, at 1.42763033447 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 605924.403 Mhz, at 0.662634975227 K
+*** Source: observed-H13CNv=0
+  |- Projecting observed-H13CNv=0-c1
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Hydrogen Cyanide (HC15Nv=0) around 602274.1332 Mhz, at 0.223315223497 K
-*** Source: observed-SO2v2=1
-  |- Projecting observed-SO2v2=1-c1
-   --+ Generating template image
-   --+ Generating template line distribution
-   --+ Loading and correcting lines
-      |- Projecting Sulfur dioxide (SO2v2=1) around 602454.6493 Mhz, at 3.98187323192e-05 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 603332.8487 Mhz, at 0.00952119199511 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 603981.474 Mhz, at 0.000633764306822 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 604022.2577 Mhz, at 0.000593303415195 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 604315.0048 Mhz, at 0.011477386221 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 604398.1207 Mhz, at 0.0298364703914 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 604728.5953 Mhz, at 0.00201573672825 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 605781.546 Mhz, at 0.0069905745617 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 605850.4063 Mhz, at 3.58051122028e-07 K
-      |- Projecting Sulfur dioxide (SO2v2=1) around 605984.3296 Mhz, at 5.75016162351e-06 K
+      |- Projecting Hydrogen Cyanide (H13CNv=0) around 604267.914 Mhz, at 0.576753305925 K
 *** Source: observed-H213CO
   |- Projecting observed-H213CO-c1
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Formaldehyde (H213CO) around 602083.584 Mhz, at 0.512209079048 K
+      |- Projecting Formaldehyde (H213CO) around 602083.584 Mhz, at 0.938644686548 K
 *** Source: observed-SO2v=0
   |- Projecting observed-SO2v=0-c1
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Sulfur dioxide (SO2v=0) around 604367.4364 Mhz, at 0.867577232763 K
-      |- Projecting Sulfur dioxide (SO2v=0) around 604406.5377 Mhz, at 0.827136197678 K
-      |- Projecting Sulfur dioxide (SO2v=0) around 604987.346 Mhz, at 7.29260788023e-06 K
-      |- Projecting Sulfur dioxide (SO2v=0) around 605118.5165 Mhz, at 0.011943658925 K
-      |- Projecting Sulfur dioxide (SO2v=0) around 605532.5228 Mhz, at 1.05101394277 K
    -++ Saving FITS: data/cube_fixed_width_16.fits

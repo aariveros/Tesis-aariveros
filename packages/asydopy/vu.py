@@ -68,7 +68,7 @@ def freq_window(freq, factor, axis):
     return ini, end
 
 
-def gen_line(spe_form, freq, axis):
+def gen_line(spe_form, freq, axis, var_width):
     """
     Returns a spectral line distribution and its application window.
 
@@ -105,7 +105,11 @@ def gen_line(spe_form, freq, axis):
         t = (x - ep) / wp
         return 2 / wp * pdf(t) * cdf(ap * t)
 
-    fwhm = spe_form[1]
+    if (var_width):
+        fwhm = spe_form[1] + np.random.random_integers(-3, 3)
+    else:
+        fwhm = spe_form[1]
+
     a = spe_form[2]
 
     sigma = fwhm2sigma(freq,fwhm)
@@ -402,7 +406,7 @@ class SpectralCube:
         self.data = (
                         np.random.random(
                             (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis))) - 0.5 * np.ones(
-                            (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis)))) * 2 * self.noise
+                            (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis)))) * 2 * self.noise * 0.25
         self.hdulist = fits.HDUList([self._get_cube_HDU()])
 
 
@@ -486,8 +490,11 @@ class Component:
 class IMCM(Component):
     """ Interstellar Molecular Cloud Model """
 
-    def __init__(self, log, dbpath, mol_list, temp, spa_form, spe_form, z_grad, z_base=0.0, abun_max=10 ** -5,
-                 abun_min=10 ** -6, abun_CO=1.0, iso_abun=default_iso_abundance):
+    def __init__(self, log, dbpath, mol_list, temp, spa_form, spe_form, z_grad,
+                 var_width=False,
+                 z_base=0.0, abun_max=10 ** -5,
+                 abun_min=10 ** -6, abun_CO=1.0,
+                 iso_abun=default_iso_abundance):
         Component.__init__(self, log, z_base)
         self.spa_form = spa_form
         self.spe_form = spe_form
@@ -495,6 +502,8 @@ class IMCM(Component):
         self.dbpath = dbpath
         self.temp = temp
         self.intens = dict()
+        self.var_width = var_width
+
         for mol in mol_list.split(','):
             abun = random.uniform(abun_min, abun_max)
             if mol in ('COv=0', '13COv=0', 'C18O', 'C17O', '13C18O'):
@@ -550,15 +559,15 @@ class IMCM(Component):
                 counter += 1
                 trans_temp = lin[5]
                 temp = np.exp(-abs(trans_temp - self.temp) / self.temp) * rinte
-                # if temp < 3 * cube.noise:
-                #     continue
+                if temp < 3 * cube.noise:
+                    continue
                 freq = (1 + self.z) * lin[3]  # Catalogs must be in Mhz
                 self.log.write('      |- Projecting ' + str(lin[2]) + ' (' + str(lin[1]) + ') around ' + str(
                     freq) + ' Mhz, at ' + str(temp) + ' K\n')
                 for xp in range(xbord[0], xbord[1]):
                     for yp in range(ybord[0], ybord[1]):
                         freq = freq_correct(lin[3],self.rv + G[yp - ybord[0], xp - xbord[0]])
-                        L, Lbord = gen_line(self.spe_form, freq, cube.freq_axis)
+                        L, Lbord = gen_line(self.spe_form, freq, cube.freq_axis, self.var_width)
                         if isinstance(L, bool):
                             continue
                         if (xp == 0 and yp == 0):

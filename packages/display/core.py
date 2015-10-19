@@ -17,11 +17,11 @@ import pandas as pd
 from astropy.io import fits
 from scipy.signal import savgol_filter
 
-import utils.peakdet
-import asydopy.db
-import asydopy.vu
-import display.db
-import display.vu
+import packages.utils.peakdet
+import packages.asydopy.db
+import packages.asydopy.vu
+import packages.display.db
+import packages.display.vu
 
 # ## Helper constants ###
 SPEED_OF_LIGHT = 299792458.0
@@ -64,7 +64,7 @@ def fwhm2sigma(freq,fwhm):
 def theoretical_presence(molist, freq_init, freq_end):
     # Initialize and connect to the db
     dbpath = 'ASYDO'
-    dba = asydopy.db.lineDB(dbpath)
+    dba = packages.asydopy.db.lineDB(dbpath)
     dba.connect()
     molist_present = []
     for mol in molist:
@@ -88,23 +88,24 @@ def gen_cube(isolist, cube_params, cube_name):
 
     # log = sys.stdout
     dbpath = 'ASYDO'
-    log=open(cube_name + '.log', 'w')
-    univ=asydopy.vu.Universe(log)
+    log = open(cube_name + '.log', 'w')
+    univ = packages.asydopy.vu.Universe(log)
 
     for mol in isolist:
 
         univ.create_source('observed-'+mol, cube_params['alpha'],
                              cube_params['delta'])
-        s_x=random.uniform(50, 150)
-        s_y=random.uniform(40, 100)
-        rot=random.uniform(10, 150)
-        s_f=cube_params['s_f']
-        angle=random.uniform(0,math.pi)
+        s_x = random.uniform(50, 150)
+        s_y = random.uniform(40, 100)
+        rot = random.uniform(10, 150)
+        s_f = cube_params['s_f']
+        angle = random.uniform(0,math.pi)
 
-        model=asydopy.vu.IMCM(log,dbpath, mol, temp,
+        model = packages.asydopy.vu.IMCM(log,dbpath, mol, temp,
                               ('normal',s_x,s_y,angle),
                               ('skew',cube_params['s_f'],cube_params['s_a']),
-                              ('linear',angle,rot))
+                              ('linear',angle,rot),
+                              var_width=False)
 
         model.set_radial_velocity(rvel)
         univ.add_component('observed-'+mol, model)
@@ -121,7 +122,7 @@ def gen_cube_variable_width(isolist, cube_params, cube_name):
     # log = sys.stdout
     dbpath = 'ASYDO'
     log=open(cube_name + '.log', 'w')
-    univ=asydopy.vu.Universe(log)
+    univ=packages.asydopy.vu.Universe(log)
 
     for mol in isolist:
 
@@ -133,10 +134,11 @@ def gen_cube_variable_width(isolist, cube_params, cube_name):
         s_f=cube_params['s_f']
         angle=random.uniform(0,math.pi)
 
-        model=asydopy.vu.IMCM_variable_width(log,dbpath, mol, temp,
+        model=packages.asydopy.vu.IMCM(log,dbpath, mol, temp,
                               ('normal',s_x,s_y,angle),
                               ('skew',cube_params['s_f'],cube_params['s_a']),
-                              ('linear',angle,rot))
+                              ('linear',angle,rot),
+                              var_width=True)
 
         model.set_radial_velocity(rvel)
         univ.add_component('observed-'+mol, model)
@@ -148,20 +150,24 @@ def gen_cube_variable_width(isolist, cube_params, cube_name):
 
     univ.save_cube(cube, cube_name + '.fits')
 
-def gen_words(molist, cube_params):
+def gen_words(molist, cube_params, dual_words=False):
     log = sys.stdout
     dbpath = 'ASYDO'
     dictionary = pd.DataFrame([])
+
+    last_code = ""
+    last_freq = 0
+
     for mol in molist:
         for iso in molist[mol]:
-            univ=display.vu.Universe(log)
+            univ=packages.display.vu.Universe(log)
             univ.create_source('word-'+ iso)
             s_x = 1
             s_y = 1
             rot = 0
             s_f=cube_params['s_f']
             angle=math.pi
-            model=display.vu.IMCM(
+            model=packages.display.vu.IMCM(
                 log,dbpath,iso,temp,
                 ('normal',s_x, s_y, angle),
                 ('skew', cube_params['s_f'], cube_params['s_a']),
@@ -173,14 +179,41 @@ def gen_words(molist, cube_params):
                                   cube_params['spe_res'],
                                   cube_params['spe_bw'])
             if len(lines.hdulist) > 1:
-                for line in lines.hdulist[1].data:
-                    word =  np.array(np.zeros(len(lines.get_spectrum())))
-                    '''
-                        line[0] : line_code
-                        line[1] : relative freq at the window
-                    '''
-                    word[line[1]] = 1
-                    dictionary[line[0]] = word
+
+                if(dual_words):
+                    for line in lines.hdulist[1].data:
+                        word =  np.array(np.zeros(len(lines.get_spectrum())))
+                        '''
+                            line[0] : line_code alias
+                            line[1] : relative freq at the window
+                        '''
+                        word[line[1]] = 1
+                        dictionary[line[0]] = word
+
+                else:
+                    for line in lines.hdulist[1].data:
+
+                        last_iso = last_code.split('-')[0]
+                        if(iso != last_iso and line[1] - last_freq > 2):
+                            word =  np.array(np.zeros(len(lines.get_spectrum())))
+                            '''
+                                line[0] : line_code alias
+                                line[1] : relative freq at the window
+                            '''
+                            word[line[1]] = 1
+                            dictionary[line[0]] = word
+                        else:
+                            dictionary.pop(last_code)
+                            word[line[1]] = 1
+
+                            dual_alias = last_code + "&&" + \
+                                         line[0].split('-')[1]
+
+                            dictionary[dual_alias] = word
+                        last_code = line[0]
+                        last_freq = line[1]
+
+
     dictionary.index = get_freq_index_from_params(cube_params)
     return dictionary
 
@@ -325,9 +358,9 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params):
     lines = get_lines_from_fits(file_path)
 
     # Catches the predicted lines
-    alpha = pd.Series(alpha[:,0])
-    alpha.index = dictionary_recal.columns
-    alpha = alpha[alpha > 0]
+    alpha_columns = pd.Series(alpha[:,0])
+    alpha_columns.index = dictionary_recal.columns
+    alpha_columns = alpha_columns[alpha_columns > 0]
 
     set_isotopes = set()
     # Catches the lines really present
@@ -335,19 +368,19 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params):
         set_isotopes.add(lines.values[idx][0] + "-f" + str(lines.values[idx][1]))
 
     # Confusion Matrix construction
-    confusion_matrix = pd.DataFrame(np.zeros((len(alpha),
+    confusion_matrix = pd.DataFrame(np.zeros((len(alpha_columns),
                                             len(set_isotopes))),
-                                    index=alpha.index, columns=set_isotopes)
+                                    index=alpha_columns.index, columns=set_isotopes)
 
     for idx in  range(0, len(lines)):
         isotope_name = lines.values[idx][0] + "-f" + str(lines.values[idx][1])
 
         tot_sum = 0
         aux_alpha = pd.Series([])
-        for line_name in alpha.index:
-            if dictionary_recal[line_name].iloc[idx] != 0:
-                aux_alpha[line_name] = alpha[line_name]
-                tot_sum += np.absolute(alpha[line_name])
+        for line_name in alpha_columns.index:
+            if dictionary_recal[line_name].loc[lines.index[idx]] != 0:
+                aux_alpha[line_name] = alpha_columns[line_name]
+                tot_sum += np.absolute(alpha_columns[line_name])
         aux_alpha = aux_alpha/tot_sum
 
         for isotope in aux_alpha.index:
@@ -397,7 +430,7 @@ def detect_lines(file_path, cube_params, option=''):
     threshold = get_thresold_parameter(file_path, cube_params)
 
     # Array with max and min detected in the spectra
-    maxtab, mintab = utils.peakdet.peakdet(values, threshold)
+    maxtab, mintab = packages.utils.peakdet.peakdet(values, threshold)
 
     for max_line_temp in maxtab[:,1]:
 
@@ -426,7 +459,7 @@ def detect_lines_subtracting_gaussians(file_path, cube_params, option=''):
     threshold = get_thresold_parameter(file_path, cube_params)
 
     # Array with max and min detected in the spectra
-    maxtab, mintab = utils.peakdet.peakdet(values, threshold)
+    maxtab, mintab = packages.utils.peakdet.peakdet(values, threshold)
     gauss_domain = np.arange(0, cube_params['spe_bw']/cube_params['spe_res'], 1)
 
     while len(maxtab) > 0:
@@ -449,7 +482,7 @@ def detect_lines_subtracting_gaussians(file_path, cube_params, option=''):
             # Save the temp for the property
             detected_temps[int(max_line_freq)] += max_line_temp
 
-            maxtab, mintab = utils.peakdet.peakdet(values,  threshold)
+            maxtab, mintab = packages.utils.peakdet.peakdet(values,  threshold)
         else:
             break
 
@@ -489,11 +522,10 @@ def get_temps_from_fits(file_path):
     hdu_list.close()
     return lines
 
-def near_obs_freq(freq_theo, file_path, cube_params):
+def near_obs_freq(freq_theo, file_path, cube_params, detected_lines):
 
     min_dist = cube_params['spe_bw']/cube_params['spe_res']
     near_freq = 0
-    detected_lines = detect_lines_subtracting_gaussians(file_path, cube_params)
 
     for freq_obs in range(0, int(min_dist)):
         if detected_lines[freq_obs] != 0:
@@ -506,10 +538,10 @@ def near_obs_freq(freq_theo, file_path, cube_params):
     return near_freq
 
 
-def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params):
+def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params,
+                  detected_temps):
     sigma = fwhm2sigma(cube_params['freq'], cube_params['s_f'])
-    detected_temps = detect_lines_subtracting_gaussians(file_path, cube_params,
-                                                        option="temp")
+
     gauss_weight = gaussian_weighted(freq_theo, near_freq_obs,
                                   sigma, detected_temps[near_freq_obs])
     factor = 2*sigma
@@ -529,23 +561,32 @@ def recal_words(file_path, words, cube_params):
 
     words_recal = pd.DataFrame(np.zeros(words.shape))
     words_recal.index = np.arange(0,
-                                cube_params['spe_bw']/cube_params['spe_res'], 1)
+                                  cube_params['spe_bw']/cube_params['spe_res'],
+                                  1)
     words_recal.columns = words.columns
 
     size_spectra = cube_params['spe_bw']/cube_params['spe_res']
+
+    detected_lines = detect_lines_subtracting_gaussians(file_path, cube_params)
+
+    detected_temps = detect_lines_subtracting_gaussians(file_path, cube_params,
+                                                        option="temp")
+
     for mol in words.columns: #'CH3OHvt=0-f602233.197'
         # The theorethical line will be replaced by the max probability of
         # the nearest observed line (Gaussian decay distance weighted)
         for freq_theo in range(0, int(size_spectra)):
             if words.iloc[freq_theo][mol] != 0: #117
-                nof = near_obs_freq(freq_theo, file_path, cube_params)
+                nof = near_obs_freq(freq_theo, file_path, cube_params,
+                                    detected_lines)
                 gauss_fit, window = near_obs_prob(freq_theo, nof,
-                                                  file_path, cube_params)
+                                                  file_path, cube_params,
+                                                  detected_temps)
                 # Reeplace the highest probability for each theoretical line
                 words_recal[mol].iloc[window] = gauss_fit
                 break
     words_recal.index = words.index
-    return words_recal
+    return words_recal, detected_lines
 
 def get_data_from_fits(file_path):
     hdu_list = fits.open(file_path)
@@ -597,7 +638,7 @@ def get_noise_parameters_from_fits(file_path, cube_params):
     std_noise = np.std(values_noise)
     return mean_noise, std_noise
 
-def plot_data(point):
+def plot_data(data, point):
     values = data[:,point[0],point[1]]
     plt.plot(values, color='r', label='Observed spectra')
     plt.xlabel('Relative Frequency [MHz]')

@@ -1,0 +1,62 @@
++++ Source 'observed-CH3OHvt=0' added
+ |- Component added to 'observed-CH3OHvt=0' (observed-CH3OHvt=0-c1)
+ ---+ Model: mol_list = ['CH3OHvt=0'] @ spa_form=('normal', 108.21120742124668, 62.979309505527674, 0.7502444323321925), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.7502444323321925, 86.25232314197913)
++++ Source 'observed-34SO2v=0' added
+ |- Component added to 'observed-34SO2v=0' (observed-34SO2v=0-c1)
+ ---+ Model: mol_list = ['34SO2v=0'] @ spa_form=('normal', 132.68256627427428, 72.61080448644682, 2.4281275513360847), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.4281275513360847, 38.77025198210521)
++++ Source 'observed-OS18O' added
+ |- Component added to 'observed-OS18O' (observed-OS18O-c1)
+ ---+ Model: mol_list = ['OS18O'] @ spa_form=('normal', 139.78249016450962, 54.03258350984084, 0.37078730501169316), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.37078730501169316, 124.84719435808555)
++++ Source 'observed-HC15Nv=0' added
+ |- Component added to 'observed-HC15Nv=0' (observed-HC15Nv=0-c1)
+ ---+ Model: mol_list = ['HC15Nv=0'] @ spa_form=('normal', 144.6802278505789, 61.73630566945002, 3.1407492139009983), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 3.1407492139009983, 79.64621074620787)
++++ Source 'observed-H13CNv2=1' added
+ |- Component added to 'observed-H13CNv2=1' (observed-H13CNv2=1-c1)
+ ---+ Model: mol_list = ['H13CNv2=1'] @ spa_form=('normal', 78.45498562688857, 78.57853702787943, 2.8290264206442775), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.8290264206442775, 23.523896994909148)
++++ Source 'observed-H13CNv=0' added
+ |- Component added to 'observed-H13CNv=0' (observed-H13CNv=0-c1)
+ ---+ Model: mol_list = ['H13CNv=0'] @ spa_form=('normal', 134.75692028052316, 84.9017662656185, 2.5591729439807875), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.5591729439807875, 128.31266638752098)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=604000 bandwidth=[602000.0, 606000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 9
+*** Source: observed-OS18O
+  |- Projecting observed-OS18O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-H13CNv2=1
+  |- Projecting observed-H13CNv2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-34SO2v=0
+  |- Projecting observed-34SO2v=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 602815.8891 Mhz, at 0.519380389613 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 604080.004 Mhz, at 0.809086426535 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 604376.563 Mhz, at 1.10912146653 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 605499.8855 Mhz, at 1.16389398116 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 605924.403 Mhz, at 0.54022168117 K
+*** Source: observed-CH3OHvt=0
+  |- Projecting observed-CH3OHvt=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-HC15Nv=0
+  |- Projecting observed-HC15Nv=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Hydrogen Cyanide (HC15Nv=0) around 602274.1332 Mhz, at 0.856204201691 K
+*** Source: observed-H13CNv=0
+  |- Projecting observed-H13CNv=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+   -++ Saving FITS: data/cube_variable_width_36.fits
