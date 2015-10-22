@@ -316,45 +316,43 @@ def graph_sparse_coding(Detector, dictionary_recal, alpha,
     plt.show()
 
 
-def fill_precision(Results, MatrixConfusion,):
-    for isotope in MatrixConfusion.columns:
+def fill_precision(results, confusion_matrix,):
+    for column in confusion_matrix.columns:
         true_positives = 0.0
         tot = 0.0
-        for row in MatrixConfusion.index:
-            if isotope == row:
-                true_positives += MatrixConfusion.loc[row][isotope]
-            tot += MatrixConfusion.loc[row][isotope]
+        for row in confusion_matrix.index:
+            if column.split('-')[0] == row.split('-')[0] \
+                and set(column.split('-')[1].split("&&")).issubset(set(row.split('-')[1].split("&&"))):
+                true_positives += confusion_matrix.loc[row][column]
+            tot += confusion_matrix.loc[row][isotope]
         if tot != 0:
-            Results['Precision'].loc[isotope] = 1.0*true_positives/tot
-    return Results
+            results['Precision'].loc[column] = 1.0*true_positives/tot
+    return results
 
-def fill_recall(Results, MatrixConfusion):
-    for isotope in MatrixConfusion.columns:
-        if isotope not in MatrixConfusion.index:
-            Results['Recall'].loc[isotope] = 0
-            continue
-
+def fill_recall(results, confusion_matrix):
+    for row in confusion_matrix.index:
         true_positives = 0.0
         tot = 0.0
-        for column in MatrixConfusion.columns:
-            if isotope == column:
-                true_positives += MatrixConfusion.loc[isotope][column]
-            tot += MatrixConfusion.loc[isotope][column]
+        for column in confusion_matrix.columns:
+            if column.split('-')[0] == row.split('-')[0] \
+                and set(column.split('-')[1].split("&&")).issubset(set(row.split('-')[1].split("&&"))):
+                true_positives += confusion_matrix.loc[row][column]
+            tot += confusion_matrix.loc[row][column]
         if tot != 0:
-            Results['Recall'].loc[isotope] = 1.0*true_positives/tot
-    return Results
+            results['Recall'].loc[column] = 1.0*true_positives/tot
+    return results
 
-def fill_fscore(Results, MatrixConfusion):
+def fill_fscore(results, MatrixConfusion):
     for isotope in MatrixConfusion.columns:
-        recall = Results['Recall'].loc[isotope]
-        precision = Results['Precision'].loc[isotope]
+        recall = results['Recall'].loc[isotope]
+        precision = results['Precision'].loc[isotope]
         if recall != 0 or precision != 0:
-            Results['F-Score'].loc[isotope] = 2.*(recall*precision)/(recall + precision)
-    return Results
+            results['F-Score'].loc[isotope] = 2.*(recall*precision)/(recall + precision)
+    return results
 
 def get_results(confusion_matrix):
-    results = pd.DataFrame(np.zeros((len(confusion_matrix.columns), 3)),
-                      index=confusion_matrix.columns,
+    results = pd.DataFrame(np.zeros((len(confusion_matrix.index), 3)),
+                      index=confusion_matrix.index,
                       columns=['Precision', 'Recall', 'F-Score'])*1.0
     results = fill_precision(results, confusion_matrix)
     results = fill_recall(results, confusion_matrix)
@@ -385,16 +383,15 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_w
                     line[1] : Frequency (MHz)
                 """
                 last_code = lines.index[idx]
-                dual_lines[last_code]= [lines[idx][0], lines[idx][1]]
+                dual_lines[last_code]= [lines[idx][0], [lines[idx][1]], lines[idx][2]]
 
             else:
-
-                dual_lines.pop(last_code)
-
-                dual_alias = last_code + "&&" + str(lines[idx][1])
-
-                last_code = dual_alias
-                dual_lines[last_code]= [lines[idx][0], lines[idx][1]]
+                last_line = dual_lines.pop(last_code)
+                last_code = last_code + "&&f" + str(lines[idx][1])
+                last_line[1].append(lines[idx][1])
+                last_n = len(last_line[1])
+                averange_temp = (last_line[2]*last_n + lines[idx][2])/(last_n + 1)
+                dual_lines[last_code]= [lines[idx][0], last_line[1], averange_temp]
 
             last_freq = lines[idx][1]
 
@@ -405,15 +402,10 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_w
     alpha_columns.index = dictionary_recal.columns
     alpha_columns = alpha_columns[alpha_columns > 0]
 
-    set_isotopes = set()
-    # Catches the lines really present
-    for idx in range(0, len(lines)):
-        set_isotopes.add(lines.values[idx][0] + "-f" + str(lines.values[idx][1]))
-
     # Confusion Matrix construction
     confusion_matrix = pd.DataFrame(np.zeros((len(alpha_columns),
-                                            len(set_isotopes))),
-                                    index=alpha_columns.index, columns=set_isotopes)
+                                            len(lines.index))),
+                                    index=alpha_columns.index, columns=lines.index)
 
     for idx in  range(0, len(lines)):
         isotope_name = lines.index[idx]
@@ -421,27 +413,16 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_w
         tot_sum = 0
         aux_alpha = pd.Series([])
         for line_name in alpha_columns.index:
-            indexes_dual = lines.index[idx].split('-')[1].split("&&")
-            for index in indexes_dual:
-                if dictionary_recal[line_name].loc[int(float(index[1:]))] != 0:
+            for freq in lines[idx][1]:
+                if dictionary_recal[line_name].loc[int(freq)] != 0:
                     aux_alpha[line_name] = alpha_columns[line_name]
-                    tot_sum += np.absolute(alpha_columns[line_name])
+                    tot_sum += alpha_columns[line_name]
         aux_alpha = aux_alpha/tot_sum
 
         for isotope in aux_alpha.index:
             confusion_matrix[isotope_name].loc[isotope] += aux_alpha[isotope]
 
     return confusion_matrix
-
-
-def test(dictionary_recal, alpha, file_path, cube_params):
-
-    confusion_matrix = get_confusion_matrix(dictionary_recal, alpha,
-                                           file_path, cube_params)
-
-    results = get_results(confusion_matrix)
-
-    return confusion_matrix, results
 
 def print_predictions(Detector, confusion_matrix):
     lines = Detector.get_lines_from_fits()
@@ -547,7 +528,7 @@ def get_lines_from_fits(file_path):
                 line[6] : Temperature (No unit)
             """
             code = line[1] + "-f" + str(line[3])
-            lines[code]= [line[1], line[3]]
+            lines[code]= [line[1], line[3], line[6]]
         i = i + 3
     hdu_list.close()
     return lines
@@ -592,7 +573,7 @@ def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params,
                                   sigma, detected_temps[near_freq_obs])
     factor = 2*sigma
     ini = int(round(freq_theo - factor))
-    end =int(round(freq_theo + factor))
+    end = int(round(freq_theo + factor))
     if ini < 0:
         ini = 0
     size_spectra = cube_params['spe_bw']/cube_params['spe_res']
@@ -606,9 +587,7 @@ def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params,
 def recal_words(file_path, words, cube_params):
 
     words_recal = pd.DataFrame(np.zeros(words.shape))
-    words_recal.index = np.arange(0,
-                                  cube_params['spe_bw']/cube_params['spe_res'],
-                                  1)
+    words_recal.index = get_freq_index_from_params(cube_params)
     words_recal.columns = words.columns
 
     size_spectra = cube_params['spe_bw']/cube_params['spe_res']
@@ -631,7 +610,7 @@ def recal_words(file_path, words, cube_params):
                 # Reeplace the highest probability for each theoretical line
                 words_recal[mol].iloc[window] = gauss_fit
                 break
-    words_recal.index = words.index
+
     return words_recal, detected_lines
 
 def get_data_from_fits(file_path):
