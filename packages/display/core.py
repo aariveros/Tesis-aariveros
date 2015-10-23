@@ -247,73 +247,89 @@ def save_isolist(D):
     pickle.dump(D, output)
     output.close()
 
-
 def load_isolist():
     input_file = open('pickle/isolist.pkl', "rb" )
     D = pickle.load(input_file)
     input_file.close()
     return D
 
+def save_recal_words(cubename, dictionary_recal, detected_peaks):
+    output = open('pickle/dictionary_recal_' + cubename + '.pkl', 'wb')
+    pickle.dump(dictionary_recal, output)
+    output = open('pickle/detected_peaks_' + dictionary_recal + '.pkl', 'wb')
+    output.close()
+    pickle.dump(detected_peaks, output)
+    output.close()
+
+def load_recal_words(cubename):
+    input_file = open('pickle/dictionary_recal_' + cubename + '.pkl', "rb" )
+    dictionary_recal = pickle.load(input_file)
+    input_file.close()
+    input_file = open('pickle/detected_peaks_' + dictionary_recal + '.pkl', "rb" )
+    detected_peaks = pickle.load(input_file)
+    input_file.close()
+    return dictionary_recal, detected_peaks
+
 def get_fortran_array(input):
     fort_array = np.asfortranarray(np.asmatrix(input)).T
     fort_array = np.asfortranarray(fort_array, dtype= np.double)
     return fort_array
 
-def show_alphas(alpha):
-    for p in xrange(0, len(alpha)):
-        if alpha[p] != 0:
-            print(dictionary.columns[p] + ": " +  str(alpha[p]))
+# def show_alphas(alpha):
+#     for p in xrange(0, len(alpha)):
+#         if alpha[p] != 0:
+#             print(dictionary.columns[p] + ": " +  str(alpha[p]))
+#
+# def show_words(dictionary):
+#     for iso in dictionary.columns:
+#         plt.plot(dictionary[iso])
+#     mng = plt.get_current_fig_manager()
+#     mng.full_screen_toggle()
+#     plt.show()
 
-def show_words(dictionary):
-    for iso in dictionary.columns:
-        plt.plot(dictionary[iso])
-    mng = plt.get_current_fig_manager()
-    mng.full_screen_toggle()
-    plt.show()
-
-def graph_sparse_coding(Detector, dictionary_recal, alpha,
-                        cube_params, y_train, total):
-    lines = Detector.get_lines_from_fits()
-
-    # Catches the predicted lines
-    alpha = pd.Series(alpha[:,0])
-    alpha.index = dictionary_recal.columns
-    alpha = alpha[alpha > 0]
-
-
-    for line in lines:
-        # Shows lines really present
-        isotope_frequency = int(line[1])
-        isotope_name = line[0] + "-f" + str(line[1])
-
-        plt.axvline(x=isotope_frequency, ymin=0, ymax= 3, color='g')
-        plt.text(isotope_frequency, 22.0, isotope_name, size='14', rotation='vertical')
-
-        # Show predicted classes
-        tot_sum = 0
-        aux_alpha = pd.Series([])
-        for line_name in alpha.index:
-            if dictionary_recal[line_name].loc[isotope_frequency] != 0:
-                aux_alpha[line_name] = alpha[line_name]
-                tot_sum += np.absolute(alpha[line_name])
-        aux_alpha = aux_alpha/tot_sum
-
-        i = 2
-        for line_name in aux_alpha.index:
-            plt.axvline(x=isotope_frequency, ymin=0, ymax= 0, color='g')
-            plt.text(isotope_frequency, 0.15 + i, line_name, size='14', rotation='vertical')
-            plt.text(isotope_frequency + 33, 0.15 + i, str(aux_alpha[line_name]), size='14', rotation='vertical')
-            i += 4
-
-    xaxis = Detector.get_freq_index_from_params()
-    plt.plot(xaxis, y_train*20, color='r', label='Observed')
-    plt.plot(xaxis, total*20, color='b', label='Recovered', linestyle='--')
-    plt.legend(loc='upper right')
-    plt.xlim(xmax = xaxis[-1], xmin = xaxis[0])
-    plt.ylim(ymax = 25, ymin = -1)
-    mng = plt.get_current_fig_manager()
-    mng.full_screen_toggle()
-    plt.show()
+# def graph_sparse_coding(Detector, dictionary_recal, alpha,
+#                         cube_params, y_train, total):
+#     lines = Detector.get_lines_from_fits()
+#
+#     # Catches the predicted lines
+#     alpha = pd.Series(alpha[:,0])
+#     alpha.index = dictionary_recal.columns
+#     alpha = alpha[alpha > 0]
+#
+#
+#     for line in lines:
+#         # Shows lines really present
+#         isotope_frequency = int(line[1])
+#         isotope_name = line[0] + "-f" + str(line[1])
+#
+#         plt.axvline(x=isotope_frequency, ymin=0, ymax= 3, color='g')
+#         plt.text(isotope_frequency, 22.0, isotope_name, size='14', rotation='vertical')
+#
+#         # Show predicted classes
+#         tot_sum = 0
+#         aux_alpha = pd.Series([])
+#         for line_name in alpha.index:
+#             if dictionary_recal[line_name].loc[isotope_frequency] != 0:
+#                 aux_alpha[line_name] = alpha[line_name]
+#                 tot_sum += np.absolute(alpha[line_name])
+#         aux_alpha = aux_alpha/tot_sum
+#
+#         i = 2
+#         for line_name in aux_alpha.index:
+#             plt.axvline(x=isotope_frequency, ymin=0, ymax= 0, color='g')
+#             plt.text(isotope_frequency, 0.15 + i, line_name, size='14', rotation='vertical')
+#             plt.text(isotope_frequency + 33, 0.15 + i, str(aux_alpha[line_name]), size='14', rotation='vertical')
+#             i += 4
+#
+#     xaxis = Detector.get_freq_index_from_params()
+#     plt.plot(xaxis, y_train*20, color='r', label='Observed')
+#     plt.plot(xaxis, total*20, color='b', label='Recovered', linestyle='--')
+#     plt.legend(loc='upper right')
+#     plt.xlim(xmax = xaxis[-1], xmin = xaxis[0])
+#     plt.ylim(ymax = 25, ymin = -1)
+#     mng = plt.get_current_fig_manager()
+#     mng.full_screen_toggle()
+#     plt.show()
 
 
 def fill_precision(results, confusion_matrix,):
@@ -324,9 +340,11 @@ def fill_precision(results, confusion_matrix,):
             if column.split('-')[0] == row.split('-')[0] \
                 and set(column.split('-')[1].split("&&")).issubset(set(row.split('-')[1].split("&&"))):
                 true_positives += confusion_matrix.loc[row][column]
-            tot += confusion_matrix.loc[row][isotope]
+            tot += confusion_matrix.loc[row][column]
         if tot != 0:
             results['Precision'].loc[column] = 1.0*true_positives/tot
+        else:
+            results['Precision'].loc[column] = 0
     return results
 
 def fill_recall(results, confusion_matrix):
@@ -339,7 +357,9 @@ def fill_recall(results, confusion_matrix):
                 true_positives += confusion_matrix.loc[row][column]
             tot += confusion_matrix.loc[row][column]
         if tot != 0:
-            results['Recall'].loc[column] = 1.0*true_positives/tot
+            results['Recall'].loc[row] = 1.0*true_positives/tot
+        else:
+            results['Recall'].loc[row] = 0
     return results
 
 def fill_fscore(results, MatrixConfusion):
@@ -351,8 +371,8 @@ def fill_fscore(results, MatrixConfusion):
     return results
 
 def get_results(confusion_matrix):
-    results = pd.DataFrame(np.zeros((len(confusion_matrix.index), 3)),
-                      index=confusion_matrix.index,
+    results = pd.DataFrame(np.ones((len(confusion_matrix.columns), 3)),
+                      index=confusion_matrix.columns,
                       columns=['Precision', 'Recall', 'F-Score'])*1.0
     results = fill_precision(results, confusion_matrix)
     results = fill_recall(results, confusion_matrix)
@@ -424,18 +444,18 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_w
 
     return confusion_matrix
 
-def print_predictions(Detector, confusion_matrix):
-    lines = Detector.get_lines_from_fits()
-
-    for line in lines:
-        isotope_frequency = int(line[1])
-        isotope_name = line[0] + "-f" + str(line[1])
-        isotope_temp = line[2]
-
-        print("# " + isotope_name + ", temperature: " + str(isotope_temp))
-        for predicted_isotope in confusion_matrix.index:
-            if confusion_matrix.loc[predicted_isotope][isotope_name] != 0:
-                print(predicted_isotope + ": " + str(confusion_matrix.loc[predicted_isotope][isotope_name]))
+# def print_predictions(Detector, confusion_matrix):
+#     lines = Detector.get_lines_from_fits()
+#
+#     for line in lines:
+#         isotope_frequency = int(line[1])
+#         isotope_name = line[0] + "-f" + str(line[1])
+#         isotope_temp = line[2]
+#
+#         print("# " + isotope_name + ", temperature: " + str(isotope_temp))
+#         for predicted_isotope in confusion_matrix.index:
+#             if confusion_matrix.loc[predicted_isotope][isotope_name] != 0:
+#                 print(predicted_isotope + ": " + str(confusion_matrix.loc[predicted_isotope][isotope_name]))
 
 #####
 #
@@ -663,26 +683,26 @@ def get_noise_parameters_from_fits(file_path, cube_params):
     std_noise = np.std(values_noise)
     return mean_noise, std_noise
 
-def plot_data(data, point):
-    values = data[:,point[0],point[1]]
-    plt.plot(values, color='r', label='Observed spectra')
-    plt.xlabel('Relative Frequency [MHz]')
-    plt.ylabel('Temperature [Normalized]')
-    plt.legend(loc='upper right')
-    plt.show()
-
-def plot_detected_lines(self):
-    # Plot detected max
-    plt.plot(self.values, color='r', label='Observed Filtered')
-    plt.xlabel('Relative Frequency [MHz]')
-    plt.ylabel('Temperature [Normalized]')
-    plt.legend(loc='upper right')
-    # Plot Array with max and min detected in the spectra
-    # Plot max point
-    for i in range(len(self.max_line_freq)):
-        plt.plot(self.max_line_freq[i], self.max_line_temp[i], 'bs')
-    plt.axhspan(0, self.threshold, alpha=0.5)
-    plt.show()
+# def plot_data(data, point):
+#     values = data[:,point[0],point[1]]
+#     plt.plot(values, color='r', label='Observed spectra')
+#     plt.xlabel('Relative Frequency [MHz]')
+#     plt.ylabel('Temperature [Normalized]')
+#     plt.legend(loc='upper right')
+#     plt.show()
+#
+# def plot_detected_lines(self):
+#     # Plot detected max
+#     plt.plot(self.values, color='r', label='Observed Filtered')
+#     plt.xlabel('Relative Frequency [MHz]')
+#     plt.ylabel('Temperature [Normalized]')
+#     plt.legend(loc='upper right')
+#     # Plot Array with max and min detected in the spectra
+#     # Plot max point
+#     for i in range(len(self.max_line_freq)):
+#         plt.plot(self.max_line_freq[i], self.max_line_temp[i], 'bs')
+#     plt.axhspan(0, self.threshold, alpha=0.5)
+#     plt.show()
 
 molist = {
             'CO' : ('COv=0','COv=1','13COv=0','C18O','C17O','13C17O','13C18O'),
