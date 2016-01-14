@@ -1,0 +1,95 @@
++++ Source 'observed-SO2v=0' added
+ |- Component added to 'observed-SO2v=0' (observed-SO2v=0-c1)
+ ---+ Model: mol_list = ['SO2v=0'] @ spa_form=('normal', 102.37440060278442, 40.307354708252895, 2.7244678985280255), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.7244678985280255, 55.01693598051975)
++++ Source 'observed-34SO2v=0' added
+ |- Component added to 'observed-34SO2v=0' (observed-34SO2v=0-c1)
+ ---+ Model: mol_list = ['34SO2v=0'] @ spa_form=('normal', 83.84211037734393, 62.28007570560614, 0.2807281111430202), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.2807281111430202, 58.235629866849166)
++++ Source 'observed-SO2v2=1' added
+ |- Component added to 'observed-SO2v2=1' (observed-SO2v2=1-c1)
+ ---+ Model: mol_list = ['SO2v2=1'] @ spa_form=('normal', 64.97071466495737, 96.7590287110788, 0.20766687084008037), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.20766687084008037, 65.67413194699205)
++++ Source 'observed-OS18O' added
+ |- Component added to 'observed-OS18O' (observed-OS18O-c1)
+ ---+ Model: mol_list = ['OS18O'] @ spa_form=('normal', 68.04333088500591, 76.24152128991243, 0.6725974763362362), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.6725974763362362, 74.55103906926627)
++++ Source 'observed-OS17O' added
+ |- Component added to 'observed-OS17O' (observed-OS17O-c1)
+ ---+ Model: mol_list = ['OS17O'] @ spa_form=('normal', 109.94102591119503, 67.69760019629709, 0.006555740641987268), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.006555740641987268, 59.32903107368189)
++++ Source 'observed-HC15Nv=0' added
+ |- Component added to 'observed-HC15Nv=0' (observed-HC15Nv=0-c1)
+ ---+ Model: mol_list = ['HC15Nv=0'] @ spa_form=('normal', 67.88904842297872, 81.5887459566733, 2.8670607319842585), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.8670607319842585, 145.48104245525053)
++++ Source 'observed-H13CNv2=1' added
+ |- Component added to 'observed-H13CNv2=1' (observed-H13CNv2=1-c1)
+ ---+ Model: mol_list = ['H13CNv2=1'] @ spa_form=('normal', 138.9334022172523, 46.781579873040805, 0.91180481366124), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.91180481366124, 123.35670008984668)
++++ Source 'observed-H213CS' added
+ |- Component added to 'observed-H213CS' (observed-H213CS-c1)
+ ---+ Model: mol_list = ['H213CS'] @ spa_form=('normal', 52.39732927347711, 71.57241176815245, 2.2348980760304213), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.2348980760304213, 110.52474973670545)
++++ Source 'observed-H2C34S' added
+ |- Component added to 'observed-H2C34S' (observed-H2C34S-c1)
+ ---+ Model: mol_list = ['H2C34S'] @ spa_form=('normal', 92.38371033877013, 41.00816531736013, 2.5525526210027505), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.5525526210027505, 47.93336598163653)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=277000 bandwidth=[275000.0, 279000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 7
+*** Source: observed-OS18O
+  |- Projecting observed-OS18O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS18O) around 275552.9984 Mhz, at 0.143505032521 K
+      |- Projecting Sulfur Dioxide (OS18O) around 276002.289 Mhz, at 0.151461747969 K
+*** Source: observed-H213CS
+  |- Projecting observed-H213CS-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-H13CNv2=1
+  |- Projecting observed-H13CNv2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-34SO2v=0
+  |- Projecting observed-34SO2v=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 275434.2181 Mhz, at 0.149937106007 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 276483.977 Mhz, at 0.126086747996 K
+*** Source: observed-OS17O
+  |- Projecting observed-OS17O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS17O) around 275054.7862 Mhz, at 0.332055033536 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275142.6319 Mhz, at 0.41294465863 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275151.3474 Mhz, at 0.412944052978 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275431.4561 Mhz, at 0.362802007717 K
+      |- Projecting Sulfur Dioxide (OS17O) around 276201.24 Mhz, at 0.244236036118 K
+      |- Projecting Sulfur Dioxide (OS17O) around 277061.5867 Mhz, at 0.307487679212 K
+      |- Projecting Sulfur Dioxide (OS17O) around 277365.4535 Mhz, at 0.38197213166 K
+*** Source: observed-HC15Nv=0
+  |- Projecting observed-HC15Nv=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-SO2v2=1
+  |- Projecting observed-SO2v2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur dioxide (SO2v2=1) around 275061.7269 Mhz, at 0.329206628917 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278755.1244 Mhz, at 0.263171621269 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278849.6017 Mhz, at 0.306917568508 K
+*** Source: observed-H2C34S
+  |- Projecting observed-H2C34S-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Thioformaldehyde (H2C34S) around 277295.9149 Mhz, at 1.14756288575 K
+*** Source: observed-SO2v=0
+  |- Projecting observed-SO2v=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+   -++ Saving FITS: data/cube_variable_width_75.fits

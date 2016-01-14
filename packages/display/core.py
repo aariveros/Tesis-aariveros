@@ -43,18 +43,16 @@ ALMA_bands = {'3': [88000, 116000], '4': [125000, 163000], '6': [211000, 275000]
 
 def gaussian(x, mu, sig):
     """
-
       """
     return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
 
 
-def gaussian_weighted(x, mu, sig, w):
+def gaussian_weighted(x, mu, sig, w, factor):
     """
-
       """
-    return np.power(w, 2.) * np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
+    return factor*w * gaussian(x, mu, sig)
 
-def fwhm2sigma(freq,fwhm):
+def fwhm2sigma(freq, fwhm):
     """
       Compute the sigma in MHz given a frequency in MHz and a fwhm in km/s
       """
@@ -84,6 +82,7 @@ def theoretical_presence(molist, freq_init, freq_end):
 #         - temp
 #         - rvel
 #
+# TO DO: Refactory
 def gen_cube(isolist, cube_params, cube_name):
 
     # log = sys.stdout
@@ -117,6 +116,7 @@ def gen_cube(isolist, cube_params, cube_name):
 
     univ.save_cube(cube, cube_name + '.fits')
 
+# TO DO: Refactory
 def gen_cube_variable_width(isolist, cube_params, cube_name):
 
     # log = sys.stdout
@@ -150,6 +150,7 @@ def gen_cube_variable_width(isolist, cube_params, cube_name):
 
     univ.save_cube(cube, cube_name + '.fits')
 
+# TO DO: Refactory
 def gen_words(molist, cube_params, dual_words=False):
     log = sys.stdout
     dbpath = 'ASYDO'
@@ -197,9 +198,9 @@ def gen_words(molist, cube_params, dual_words=False):
                         distance = float(line[0].split('-')[1][1:]) - last_freq
 
                         if(iso != last_iso or \
-                         (iso == last_iso and distance > 2)):
+                         (iso == last_iso and distance >= 1)):
 
-                            word =  np.array(np.zeros(len(lines.get_spectrum())))
+                            word = np.array(np.zeros(len(lines.get_spectrum())))
                             '''
                                 line[0] : line_code alias
                                 line[1] : relative freq at the window
@@ -210,14 +211,19 @@ def gen_words(molist, cube_params, dual_words=False):
                             last_code = line[0]
 
                         else:
-
+                            #
                             dictionary.pop(last_code)
                             word[line[1]] = 1
+                            # dictionary[line[0]] = word
 
                             dual_alias = last_code + "&&" + \
                                          line[0].split('-')[1]
-
+                            #
                             dictionary[dual_alias] = word
+                            # dictionary[dual_alias] = np.sum([dictionary\
+                            #                     [last_code], word], axis=0)
+                            # if '&&' in last_code:
+                            #     dictionary.pop(last_code)
 
                             last_code = dual_alias
 
@@ -274,63 +280,6 @@ def get_fortran_array(input):
     fort_array = np.asfortranarray(np.asmatrix(input)).T
     fort_array = np.asfortranarray(fort_array, dtype= np.double)
     return fort_array
-
-# def show_alphas(alpha):
-#     for p in xrange(0, len(alpha)):
-#         if alpha[p] != 0:
-#             print(dictionary.columns[p] + ": " +  str(alpha[p]))
-#
-# def show_words(dictionary):
-#     for iso in dictionary.columns:
-#         plt.plot(dictionary[iso])
-#     mng = plt.get_current_fig_manager()
-#     mng.full_screen_toggle()
-#     plt.show()
-
-# def graph_sparse_coding(Detector, dictionary_recal, alpha,
-#                         cube_params, y_train, total):
-#     lines = Detector.get_lines_from_fits()
-#
-#     # Catches the predicted lines
-#     alpha = pd.Series(alpha[:,0])
-#     alpha.index = dictionary_recal.columns
-#     alpha = alpha[alpha > 0]
-#
-#
-#     for line in lines:
-#         # Shows lines really present
-#         isotope_frequency = int(line[1])
-#         isotope_name = line[0] + "-f" + str(line[1])
-#
-#         plt.axvline(x=isotope_frequency, ymin=0, ymax= 3, color='g')
-#         plt.text(isotope_frequency, 22.0, isotope_name, size='14', rotation='vertical')
-#
-#         # Show predicted classes
-#         tot_sum = 0
-#         aux_alpha = pd.Series([])
-#         for line_name in alpha.index:
-#             if dictionary_recal[line_name].loc[isotope_frequency] != 0:
-#                 aux_alpha[line_name] = alpha[line_name]
-#                 tot_sum += np.absolute(alpha[line_name])
-#         aux_alpha = aux_alpha/tot_sum
-#
-#         i = 2
-#         for line_name in aux_alpha.index:
-#             plt.axvline(x=isotope_frequency, ymin=0, ymax= 0, color='g')
-#             plt.text(isotope_frequency, 0.15 + i, line_name, size='14', rotation='vertical')
-#             plt.text(isotope_frequency + 33, 0.15 + i, str(aux_alpha[line_name]), size='14', rotation='vertical')
-#             i += 4
-#
-#     xaxis = Detector.get_freq_index_from_params()
-#     plt.plot(xaxis, y_train*20, color='r', label='Observed')
-#     plt.plot(xaxis, total*20, color='b', label='Recovered', linestyle='--')
-#     plt.legend(loc='upper right')
-#     plt.xlim(xmax = xaxis[-1], xmin = xaxis[0])
-#     plt.ylim(ymax = 25, ymin = -1)
-#     mng = plt.get_current_fig_manager()
-#     mng.full_screen_toggle()
-#     plt.show()
-
 
 def fill_precision(results, confusion_matrix,):
     for column in confusion_matrix.columns:
@@ -396,7 +345,7 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_w
             distance = float(lines[idx][1]) - last_freq
 
             if(lines[idx][0] != last_iso or \
-             (lines[idx][0] == last_iso and distance > 2)):
+             (lines[idx][0] == last_iso and distance >= 1)):
 
                 """
                     line[0] : Formula
@@ -435,31 +384,25 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_w
         for line_name in alpha_columns.index:
             for freq in lines[idx][1]:
                 if dictionary_recal[line_name].loc[int(freq)] != 0:
-                    aux_alpha[line_name] = alpha_columns[line_name]
-                    tot_sum += alpha_columns[line_name]
+                    if alpha_columns[line_name] > 1:
+                        if (line_name in aux_alpha.index):
+                            aux_alpha[line_name] += 1/alpha_columns[line_name]
+                        else:
+                            aux_alpha[line_name] = 1/alpha_columns[line_name]
+                        tot_sum += 1/alpha_columns[line_name]
+                    else:
+                        if (line_name in aux_alpha.index):
+                            aux_alpha[line_name] += alpha_columns[line_name]
+                        else:
+                            aux_alpha[line_name] = alpha_columns[line_name]
+                        tot_sum += alpha_columns[line_name]
+
         aux_alpha = aux_alpha/tot_sum
 
         for isotope in aux_alpha.index:
             confusion_matrix[isotope_name].loc[isotope] += aux_alpha[isotope]
 
     return confusion_matrix
-
-# def print_predictions(Detector, confusion_matrix):
-#     lines = Detector.get_lines_from_fits()
-#
-#     for line in lines:
-#         isotope_frequency = int(line[1])
-#         isotope_name = line[0] + "-f" + str(line[1])
-#         isotope_temp = line[2]
-#
-#         print("# " + isotope_name + ", temperature: " + str(isotope_temp))
-#         for predicted_isotope in confusion_matrix.index:
-#             if confusion_matrix.loc[predicted_isotope][isotope_name] != 0:
-#                 print(predicted_isotope + ": " + str(confusion_matrix.loc[predicted_isotope][isotope_name]))
-
-#####
-#
-####
 
 def get_thresold_parameter(file_path, cube_params):
     mean_noise, std_noise = get_noise_parameters_from_fits(file_path, cube_params)
@@ -586,11 +529,11 @@ def near_obs_freq(freq_theo, file_path, cube_params, detected_lines):
 
 
 def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params,
-                  detected_temps):
+                  detected_temps, weight):
     sigma = fwhm2sigma(cube_params['freq'], cube_params['s_f'])
 
-    gauss_weight = gaussian_weighted(freq_theo, near_freq_obs,
-                                  sigma, detected_temps[near_freq_obs])
+    gauss_weight = gaussian_weighted(freq_theo, near_freq_obs, sigma,
+                                  detected_temps[near_freq_obs], weight)
     factor = 2*sigma
     ini = int(round(freq_theo - factor))
     end = int(round(freq_theo + factor))
@@ -604,7 +547,7 @@ def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params,
     gauss_fit = gauss_weight*gaussian(window, near_freq_obs, sigma)
     return gauss_fit, window
 
-def recal_words(file_path, words, cube_params):
+def recal_words(file_path, words, cube_params, weight=1):
 
     words_recal = pd.DataFrame(np.zeros(words.shape))
     words_recal.index = get_freq_index_from_params(cube_params)
@@ -626,7 +569,8 @@ def recal_words(file_path, words, cube_params):
                                     detected_lines)
                 gauss_fit, window = near_obs_prob(freq_theo, nof,
                                                   file_path, cube_params,
-                                                  detected_temps)
+                                                  detected_temps,
+                                                  weight)
                 # Reeplace the highest probability for each theoretical line
                 words_recal[mol].iloc[window] = gauss_fit
                 break
@@ -682,27 +626,6 @@ def get_noise_parameters_from_fits(file_path, cube_params):
     mean_noise = np.mean(values_noise)
     std_noise = np.std(values_noise)
     return mean_noise, std_noise
-
-# def plot_data(data, point):
-#     values = data[:,point[0],point[1]]
-#     plt.plot(values, color='r', label='Observed spectra')
-#     plt.xlabel('Relative Frequency [MHz]')
-#     plt.ylabel('Temperature [Normalized]')
-#     plt.legend(loc='upper right')
-#     plt.show()
-#
-# def plot_detected_lines(self):
-#     # Plot detected max
-#     plt.plot(self.values, color='r', label='Observed Filtered')
-#     plt.xlabel('Relative Frequency [MHz]')
-#     plt.ylabel('Temperature [Normalized]')
-#     plt.legend(loc='upper right')
-#     # Plot Array with max and min detected in the spectra
-#     # Plot max point
-#     for i in range(len(self.max_line_freq)):
-#         plt.plot(self.max_line_freq[i], self.max_line_temp[i], 'bs')
-#     plt.axhspan(0, self.threshold, alpha=0.5)
-#     plt.show()
 
 molist = {
             'CO' : ('COv=0','COv=1','13COv=0','C18O','C17O','13C17O','13C18O'),

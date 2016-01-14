@@ -1,12 +1,12 @@
 +++ Source 'observed-HC15Nv=0' added
  |- Component added to 'observed-HC15Nv=0' (observed-HC15Nv=0-c1)
- ---+ Model: mol_list = ['HC15Nv=0'] @ spa_form=('normal', 109.58480171758207, 65.22719695793946, 1.4974519368222434), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.4974519368222434, 31.88008786186659)
+ ---+ Model: mol_list = ['HC15Nv=0'] @ spa_form=('normal', 84.1146378497237, 53.306649178775935, 2.60363879048029), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.60363879048029, 35.9037985686881)
 +++ Source 'observed-H2C18O' added
  |- Component added to 'observed-H2C18O' (observed-H2C18O-c1)
- ---+ Model: mol_list = ['H2C18O'] @ spa_form=('normal', 110.08284910748293, 60.799046092987766, 0.8236738248933642), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 0.8236738248933642, 10.754742810136669)
+ ---+ Model: mol_list = ['H2C18O'] @ spa_form=('normal', 55.664386396675745, 90.06154176140576, 1.2621180657136126), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.2621180657136126, 125.20840341676359)
 +++ Source 'observed-H213CO' added
  |- Component added to 'observed-H213CO' (observed-H213CO-c1)
- ---+ Model: mol_list = ['H213CO'] @ spa_form=('normal', 138.52644478529913, 44.65341537528935, 1.1774366264197123), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.1774366264197123, 117.80043273527909)
+ ---+ Model: mol_list = ['H213CO'] @ spa_form=('normal', 59.643079379902204, 66.14414773591922, 2.072547081612672), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.072547081612672, 42.517278096068424)
 [*] Generating cube observerd
   |- Angular Coordinates (deg): ra=0 dec=0
   |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
@@ -24,12 +24,12 @@
    --+ Generating template image
    --+ Generating template line distribution
    --+ Loading and correcting lines
-      |- Projecting Formaldehyde (H2C18O) around 277062.652 Mhz, at 0.185094500618 K
-      |- Projecting Formaldehyde (H2C18O) around 277562.802 Mhz, at 0.216820677761 K
-      |- Projecting Formaldehyde (H2C18O) around 277675.2025 Mhz, at 0.264180674491 K
-      |- Projecting Formaldehyde (H2C18O) around 277678.1029 Mhz, at 0.264180674491 K
-      |- Projecting Formaldehyde (H2C18O) around 277853.3599 Mhz, at 0.133855412849 K
-      |- Projecting Formaldehyde (H2C18O) around 278145.446 Mhz, at 0.216830767385 K
+      |- Projecting Formaldehyde (H2C18O) around 277062.652 Mhz, at 0.528365624121 K
+      |- Projecting Formaldehyde (H2C18O) around 277562.802 Mhz, at 0.618930288825 K
+      |- Projecting Formaldehyde (H2C18O) around 277675.2025 Mhz, at 0.754122821003 K
+      |- Projecting Formaldehyde (H2C18O) around 277678.1029 Mhz, at 0.754122821003 K
+      |- Projecting Formaldehyde (H2C18O) around 277853.3599 Mhz, at 0.382099946328 K
+      |- Projecting Formaldehyde (H2C18O) around 278145.446 Mhz, at 0.618959090384 K
 *** Source: observed-HC15Nv=0
   |- Projecting observed-HC15Nv=0-c1
    --+ Generating template image

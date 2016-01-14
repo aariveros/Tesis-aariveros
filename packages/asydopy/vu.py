@@ -406,7 +406,7 @@ class SpectralCube:
         self.data = (
                         np.random.random(
                             (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis))) - 0.5 * np.ones(
-                            (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis)))) * 2 * self.noise * 0.25
+                            (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis)))) * 2 * self.noise * 0.1
         self.hdulist = fits.HDUList([self._get_cube_HDU()])
 
 
