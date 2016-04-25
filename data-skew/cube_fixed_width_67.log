@@ -1,0 +1,86 @@
++++ Source 'observed-CH3OHvt=0' added
+ |- Component added to 'observed-CH3OHvt=0' (observed-CH3OHvt=0-c1)
+ ---+ Model: mol_list = ['CH3OHvt=0'] @ spa_form=('normal', 100.00956855507474, 56.25119827719108, 1.5621144452767572), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 1.5621144452767572, 40.76320682470672)
++++ Source 'observed-34SO2v=0' added
+ |- Component added to 'observed-34SO2v=0' (observed-34SO2v=0-c1)
+ ---+ Model: mol_list = ['34SO2v=0'] @ spa_form=('normal', 55.02894538396613, 49.99878696804184, 2.324441906329093), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 2.324441906329093, 93.37207724243342)
++++ Source 'observed-SO2v2=1' added
+ |- Component added to 'observed-SO2v2=1' (observed-SO2v2=1-c1)
+ ---+ Model: mol_list = ['SO2v2=1'] @ spa_form=('normal', 91.91283345315193, 81.15334104463807, 0.8785633165501758), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 0.8785633165501758, 136.0456327509094)
++++ Source 'observed-OS17O' added
+ |- Component added to 'observed-OS17O' (observed-OS17O-c1)
+ ---+ Model: mol_list = ['OS17O'] @ spa_form=('normal', 144.0986331846334, 66.39991307283266, 2.1935931320610838), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 2.1935931320610838, 25.005956174712264)
++++ Source 'observed-H13CNv2=1' added
+ |- Component added to 'observed-H13CNv2=1' (observed-H13CNv2=1-c1)
+ ---+ Model: mol_list = ['H13CNv2=1'] @ spa_form=('normal', 96.94946546717989, 85.77353663811257, 1.1727878541887664), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 1.1727878541887664, 146.35688838485976)
++++ Source 'observed-H2C34S' added
+ |- Component added to 'observed-H2C34S' (observed-H2C34S-c1)
+ ---+ Model: mol_list = ['H2C34S'] @ spa_form=('normal', 106.44267833694379, 40.68759592398449, 1.2850322608862026), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 1.2850322608862026, 123.05672765194971)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=277000 bandwidth=[275000.0, 279000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 7
+*** Source: observed-H13CNv2=1
+  |- Projecting observed-H13CNv2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-H2C34S
+  |- Projecting observed-H2C34S-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Thioformaldehyde (H2C34S) around 277295.9149 Mhz, at 0.437163575444 K
+*** Source: observed-34SO2v=0
+  |- Projecting observed-34SO2v=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 275434.2181 Mhz, at 0.58885604836 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 276483.977 Mhz, at 0.495187256527 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 276999.6054 Mhz, at 0.260683411172 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 277150.575 Mhz, at 0.290858265112 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 277470.0761 Mhz, at 0.155787373484 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 278835.2175 Mhz, at 0.326497259043 K
+*** Source: observed-CH3OHvt=0
+  |- Projecting observed-CH3OHvt=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Methanol (CH3OHvt=0) around 275663.705 Mhz, at 0.266868304433 K
+      |- Projecting Methanol (CH3OHvt=0) around 276648.18 Mhz, at 1.62414958947 K
+      |- Projecting Methanol (CH3OHvt=0) around 276925.919 Mhz, at 1.17283576754 K
+      |- Projecting Methanol (CH3OHvt=0) around 277940.773 Mhz, at 0.52127195644 K
+      |- Projecting Methanol (CH3OHvt=0) around 278186.616 Mhz, at 0.521291956291 K
+      |- Projecting Methanol (CH3OHvt=0) around 278304.51 Mhz, at 0.848330127693 K
+      |- Projecting Methanol (CH3OHvt=0) around 278342.257 Mhz, at 0.656051064556 K
+      |- Projecting Methanol (CH3OHvt=0) around 278480.23 Mhz, at 0.726653679634 K
+      |- Projecting Methanol (CH3OHvt=0) around 278599.055 Mhz, at 1.53093855593 K
+      |- Projecting Methanol (CH3OHvt=0) around 278672.92 Mhz, at 0.799475159349 K
+      |- Projecting Methanol (CH3OHvt=0) around 278723.25 Mhz, at 0.799482834347 K
+      |- Projecting Methanol (CH3OHvt=0) around 278965.129 Mhz, at 0.408476408686 K
+*** Source: observed-OS17O
+  |- Projecting observed-OS17O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS17O) around 275054.7862 Mhz, at 0.534043744477 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275142.6319 Mhz, at 0.664138439368 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275151.3474 Mhz, at 0.664137465299 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275431.4561 Mhz, at 0.583494069166 K
+      |- Projecting Sulfur Dioxide (OS17O) around 275846.0173 Mhz, at 0.185674372521 K
+      |- Projecting Sulfur Dioxide (OS17O) around 276201.24 Mhz, at 0.392804547716 K
+      |- Projecting Sulfur Dioxide (OS17O) around 277061.5867 Mhz, at 0.494532095594 K
+      |- Projecting Sulfur Dioxide (OS17O) around 277365.4535 Mhz, at 0.614325358376 K
+*** Source: observed-SO2v2=1
+  |- Projecting observed-SO2v2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur dioxide (SO2v2=1) around 275061.7269 Mhz, at 0.245695248895 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278755.1244 Mhz, at 0.196411649432 K
+      |- Projecting Sulfur dioxide (SO2v2=1) around 278849.6017 Mhz, at 0.229060358331 K
+   -++ Saving FITS: data-skew/cube_fixed_width_67.fits

@@ -1,0 +1,64 @@
++++ Source 'observed-CH3OHvt=0' added
+ |- Component added to 'observed-CH3OHvt=0' (observed-CH3OHvt=0-c1)
+ ---+ Model: mol_list = ['CH3OHvt=0'] @ spa_form=('normal', 63.072679476293274, 47.77054737151576, 1.0061388656693615), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 1.0061388656693615, 77.56830190853364)
++++ Source 'observed-34SO2v=0' added
+ |- Component added to 'observed-34SO2v=0' (observed-34SO2v=0-c1)
+ ---+ Model: mol_list = ['34SO2v=0'] @ spa_form=('normal', 146.49867184251642, 74.01334246229779, 1.7213558908405393), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 1.7213558908405393, 128.22106127258704)
++++ Source 'observed-SO2v2=1' added
+ |- Component added to 'observed-SO2v2=1' (observed-SO2v2=1-c1)
+ ---+ Model: mol_list = ['SO2v2=1'] @ spa_form=('normal', 112.24381614551008, 40.88137605732564, 2.7240896603154012), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 2.7240896603154012, 125.90981200165004)
++++ Source 'observed-OS17O' added
+ |- Component added to 'observed-OS17O' (observed-OS17O-c1)
+ ---+ Model: mol_list = ['OS17O'] @ spa_form=('normal', 115.819353434963, 59.94083767791521, 0.13744478611118863), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 0.13744478611118863, 125.69687892529171)
++++ Source 'observed-H13CNv2=1' added
+ |- Component added to 'observed-H13CNv2=1' (observed-H13CNv2=1-c1)
+ ---+ Model: mol_list = ['H13CNv2=1'] @ spa_form=('normal', 86.4764421662449, 96.35734668503747, 2.44848696981064), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 2.44848696981064, 147.11589051661883)
++++ Source 'observed-H2C34S' added
+ |- Component added to 'observed-H2C34S' (observed-H2C34S-c1)
+ ---+ Model: mol_list = ['H2C34S'] @ spa_form=('normal', 74.09850615478295, 76.23106369475417, 0.8575041386037964), spe_form=('skew', 8, 1), z=0.0, grad=('linear', 0.8575041386037964, 114.95514519755574)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=604000 bandwidth=[602000.0, 606000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 9
+*** Source: observed-H13CNv2=1
+  |- Projecting observed-H13CNv2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-H2C34S
+  |- Projecting observed-H2C34S-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Thioformaldehyde (H2C34S) around 604710.9998 Mhz, at 0.642980876902 K
+*** Source: observed-34SO2v=0
+  |- Projecting observed-34SO2v=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-CH3OHvt=0
+  |- Projecting observed-CH3OHvt=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-OS17O
+  |- Projecting observed-OS17O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS17O) around 603105.7123 Mhz, at 0.787926584998 K
+      |- Projecting Sulfur Dioxide (OS17O) around 603106.5013 Mhz, at 0.787926584998 K
+      |- Projecting Sulfur Dioxide (OS17O) around 604501.9322 Mhz, at 1.25988326976 K
+      |- Projecting Sulfur Dioxide (OS17O) around 605172.0102 Mhz, at 0.808414955869 K
+      |- Projecting Sulfur Dioxide (OS17O) around 605172.0102 Mhz, at 0.808414955869 K
+      |- Projecting Sulfur Dioxide (OS17O) around 605240.925 Mhz, at 0.838950287482 K
+      |- Projecting Sulfur Dioxide (OS17O) around 605724.232 Mhz, at 0.545873402844 K
+*** Source: observed-SO2v2=1
+  |- Projecting observed-SO2v2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+   -++ Saving FITS: data-skew/cube_variable_width_42.fits
