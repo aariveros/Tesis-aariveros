@@ -66,10 +66,9 @@ def theoretical_presence(molist, freq_init, freq_end):
     dba.connect()
     molist_present = []
     for mol in molist:
-        for iso in molist[mol]:
-            linlist = dba.getSpeciesLines(iso, freq_init, freq_end)
-            if linlist:
-                molist_present.append(iso)
+        linlist = dba.getSpeciesLines(mol, freq_init, freq_end)
+        if linlist:
+            molist_present.append(mol)
     dba.disconnect()
     return molist_present
 
@@ -159,31 +158,47 @@ def gen_words(molist, cube_params, dual_words=False):
     last_code = ""
     last_freq = 0
 
-    for mol in molist:
-        for iso in molist[mol]:
-            univ=packages.display.vu.Universe(log)
-            univ.create_source('word-'+ iso)
-            s_x = 1
-            s_y = 1
-            rot = 0
-            s_f=cube_params['s_f']
-            angle=math.pi
-            model=packages.display.vu.IMCM(
-                log,dbpath,iso,temp,
-                ('normal',s_x, s_y, angle),
-                ('skew', cube_params['s_f'], cube_params['s_a']),
-                ('linear', angle, rot))
-            model.set_radial_velocity(rvel)
-            univ.add_component('word-'+ iso, model)
-            lines = univ.gen_cube('observerd',
-                                  cube_params['freq'],
-                                  cube_params['spe_res'],
-                                  cube_params['spe_bw'])
-            if len(lines.hdulist) > 1:
+    for iso in molist:
+        univ=packages.display.vu.Universe(log)
+        univ.create_source('word-'+ iso)
+        s_x = 1
+        s_y = 1
+        rot = 0
+        s_f=cube_params['s_f']
+        angle=math.pi
+        model=packages.display.vu.IMCM(
+            log,dbpath,iso,temp,
+            ('normal',s_x, s_y, angle),
+            ('skew', cube_params['s_f'], cube_params['s_a']),
+            ('linear', angle, rot))
+        model.set_radial_velocity(rvel)
+        univ.add_component('word-'+ iso, model)
+        lines = univ.gen_cube('observerd',
+                              cube_params['freq'],
+                              cube_params['spe_res'],
+                              cube_params['spe_bw'])
+        if len(lines.hdulist) > 1:
 
-                if(not dual_words):
-                    for line in lines.hdulist[1].data:
-                        word =  np.array(np.zeros(len(lines.get_spectrum())))
+            if(not dual_words):
+                for line in lines.hdulist[1].data:
+                    word =  np.array(np.zeros(len(lines.get_spectrum())))
+                    '''
+                        line[0] : line_code alias
+                        line[1] : relative freq at the window
+                    '''
+                    word[line[1]] = 1
+                    dictionary[line[0]] = word
+
+            else:
+                for line in lines.hdulist[1].data:
+
+                    last_iso = last_code.split('-')[0]
+                    distance = float(line[0].split('-')[1][1:]) - last_freq
+
+                    if(iso != last_iso or \
+                     (iso == last_iso and distance >= 1)):
+
+                        word = np.array(np.zeros(len(lines.get_spectrum())))
                         '''
                             line[0] : line_code alias
                             line[1] : relative freq at the window
@@ -191,43 +206,26 @@ def gen_words(molist, cube_params, dual_words=False):
                         word[line[1]] = 1
                         dictionary[line[0]] = word
 
-                else:
-                    for line in lines.hdulist[1].data:
+                        last_code = line[0]
 
-                        last_iso = last_code.split('-')[0]
-                        distance = float(line[0].split('-')[1][1:]) - last_freq
+                    else:
+                        #
+                        dictionary.pop(last_code)
+                        word[line[1]] = 1
+                        # dictionary[line[0]] = word
 
-                        if(iso != last_iso or \
-                         (iso == last_iso and distance >= 1)):
+                        dual_alias = last_code + "&&" + \
+                                     line[0].split('-')[1]
+                        #
+                        dictionary[dual_alias] = word
+                        # dictionary[dual_alias] = np.sum([dictionary\
+                        #                     [last_code], word], axis=0)
+                        # if '&&' in last_code:
+                        #     dictionary.pop(last_code)
 
-                            word = np.array(np.zeros(len(lines.get_spectrum())))
-                            '''
-                                line[0] : line_code alias
-                                line[1] : relative freq at the window
-                            '''
-                            word[line[1]] = 1
-                            dictionary[line[0]] = word
+                        last_code = dual_alias
 
-                            last_code = line[0]
-
-                        else:
-                            #
-                            dictionary.pop(last_code)
-                            word[line[1]] = 1
-                            # dictionary[line[0]] = word
-
-                            dual_alias = last_code + "&&" + \
-                                         line[0].split('-')[1]
-                            #
-                            dictionary[dual_alias] = word
-                            # dictionary[dual_alias] = np.sum([dictionary\
-                            #                     [last_code], word], axis=0)
-                            # if '&&' in last_code:
-                            #     dictionary.pop(last_code)
-
-                            last_code = dual_alias
-
-                        last_freq = float(line[0].split('-')[1][1:])
+                    last_freq = float(line[0].split('-')[1][1:])
 
     dictionary.index = get_freq_index_from_params(cube_params)
     return dictionary

@@ -1,0 +1,65 @@
++++ Source 'observed-CH3OHvt=0' added
+ |- Component added to 'observed-CH3OHvt=0' (observed-CH3OHvt=0-c1)
+ ---+ Model: mol_list = ['CH3OHvt=0'] @ spa_form=('normal', 86.94765302285556, 57.899287864838584, 2.236932254217368), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.236932254217368, 111.44847835180346)
++++ Source 'observed-34SO2v=0' added
+ |- Component added to 'observed-34SO2v=0' (observed-34SO2v=0-c1)
+ ---+ Model: mol_list = ['34SO2v=0'] @ spa_form=('normal', 135.43850057258106, 68.03874306592016, 1.0423758685212507), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.0423758685212507, 118.843868434145)
++++ Source 'observed-SO2v2=1' added
+ |- Component added to 'observed-SO2v2=1' (observed-SO2v2=1-c1)
+ ---+ Model: mol_list = ['SO2v2=1'] @ spa_form=('normal', 109.50048903830026, 63.35112623895313, 2.636025083786235), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.636025083786235, 36.81066671014993)
++++ Source 'observed-OS18O' added
+ |- Component added to 'observed-OS18O' (observed-OS18O-c1)
+ ---+ Model: mol_list = ['OS18O'] @ spa_form=('normal', 57.93729689607141, 92.24210482468106, 1.0995991763913093), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.0995991763913093, 20.033191600653694)
++++ Source 'observed-H13CNv=0' added
+ |- Component added to 'observed-H13CNv=0' (observed-H13CNv=0-c1)
+ ---+ Model: mol_list = ['H13CNv=0'] @ spa_form=('normal', 74.13620979996398, 68.19173688017834, 1.9658356262753154), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 1.9658356262753154, 39.541097506367336)
++++ Source 'observed-H2C18O' added
+ |- Component added to 'observed-H2C18O' (observed-H2C18O-c1)
+ ---+ Model: mol_list = ['H2C18O'] @ spa_form=('normal', 147.6657356528168, 49.844992783478716, 2.9682952908748343), spe_form=('skew', 8, 0), z=0.0, grad=('linear', 2.9682952908748343, 29.12623697487778)
+[*] Generating cube observerd
+  |- Angular Coordinates (deg): ra=0 dec=0
+  |- FOV (arcsec): ra=[-0.002777777777777778, 0.002777777777777778] dec=[-0.002777777777777778, 0.002777777777777778]
+!!! WARNING: max ALMA bandwidth exceeded
+  |- Spectral (MHz): center=604000 bandwidth=[602000.0, 606000.0]
+  |- Cube size: 2 x 2 x 4000 
+  |- Band: 9
+*** Source: observed-OS18O
+  |- Projecting observed-OS18O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (OS18O) around 602313.3835 Mhz, at 1.00030596214 K
+      |- Projecting Sulfur Dioxide (OS18O) around 603090.155 Mhz, at 0.815520392317 K
+      |- Projecting Sulfur Dioxide (OS18O) around 603608.7849 Mhz, at 0.700371746838 K
+*** Source: observed-H2C18O
+  |- Projecting observed-H2C18O-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-H13CNv=0
+  |- Projecting observed-H13CNv=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Hydrogen Cyanide (H13CNv=0) around 604267.914 Mhz, at 0.747804237264 K
+*** Source: observed-34SO2v=0
+  |- Projecting observed-34SO2v=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 602815.8891 Mhz, at 0.681761573257 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 604080.004 Mhz, at 1.06204247616 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 604376.563 Mhz, at 1.4558816834 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 605499.8855 Mhz, at 1.52777849833 K
+      |- Projecting Sulfur Dioxide (34SO2v=0) around 605924.403 Mhz, at 0.709118770418 K
+*** Source: observed-CH3OHvt=0
+  |- Projecting observed-CH3OHvt=0-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+*** Source: observed-SO2v2=1
+  |- Projecting observed-SO2v2=1-c1
+   --+ Generating template image
+   --+ Generating template line distribution
+   --+ Loading and correcting lines
+   -++ Saving FITS: data/cube_variable_width_43.fits

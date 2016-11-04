@@ -1,2 +1,4 @@
 ASYDO.sqlite
 splatalogue.csv
+pickle/*
+.ipynb_checkpoints/*
